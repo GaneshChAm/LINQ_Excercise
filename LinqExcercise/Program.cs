@@ -1,6 +1,7 @@
 ﻿namespace LinqExcercise
 {
-    class  Product
+    //Create a model class with name Product
+    class Product
     {
         public string ProductId { get; set; }
         public string ProductName { get; set; }
@@ -11,19 +12,22 @@
 
     internal class Program
     {
-        static void Main(string[] args)
+        //create an instance of List collection class of type Product.
+        List<Product> products;
+        //Create a method with name SeedData inside program class and populate the list with some initial data.
+        public void seeddata()
         {
-            List<Product> products = new List<Product>()
+            products = new List<Product>()
             {
-                new Product { ProductId = "P001", ProductName = "Laptop", Brand = "Dell", Quantity = 5, Price = 35000 },
-                new Product { ProductId = "P002", ProductName = "Camera", Brand = "Canon", Quantity = 8, Price = 28500 },
-                new Product { ProductId = "P003", ProductName = "Tablet", Brand = "Lenovo", Quantity = 4, Price = 15000 },
-                new Product { ProductId = "P004", ProductName = "Mobile", Brand = "Apple", Quantity = 9, Price = 65000 },
-                new Product { ProductId = "P005", ProductName = "Earphones", Brand = "Boat", Quantity = 2, Price = 1500 },
+                new Product {ProductId = "P001", ProductName = "Laptop", Brand = "Dell", Quantity = 5, Price = 35000},
+                new Product {ProductId = "P002", ProductName = "Camera", Brand = "Canon", Quantity = 8, Price = 28500},
+                new Product {ProductId = "P003", ProductName = "Tablet", Brand = "Lenovo", Quantity = 4, Price = 15000},
+                new Product {ProductId = "P004", ProductName = "Mobile", Brand = "Apple", Quantity = 9, Price = 65000},
+                new Product {ProductId = "P005", ProductName = "Earphones", Brand = "Boat", Quantity = 2, Price = 1500}
 
             };
-
-            Console.WriteLine("Product names from Product List where Price is between 20000 to 40000.");
+            //To retrieve the Product names from Product List where Price is between 20000 to 40000.
+            Console.WriteLine("(1)-Product names from Product List where Price is between 20000 to 40000.");
             var query1 = products.Where(x => x.Price > 20000 && x.Price < 40000);
             foreach (Product x in query1)
             {
@@ -31,8 +35,8 @@
 
             }
             Console.WriteLine();
-
-            Console.WriteLine("Product List where ProductName contains letter 'a':");
+            //For retrieving the data from Product List where ProductName contains letter'a'.
+            Console.WriteLine("(2)-Product List where ProductName contains letter 'a':");
             var query2 = products.Where(x => x.ProductName.Contains('a'));
             foreach (Product x in query2)
             {
@@ -40,8 +44,8 @@
 
             }
             Console.WriteLine();
-
-            Console.WriteLine("Product List arranged in alphabetical order based on ProductName : ");
+            //For retrieving all data from Product List arranged in alphabetical order based on ProductName.
+            Console.WriteLine("(3)-Product List arranged in alphabetical order based on ProductName : ");
             var query3 = from x in products orderby x.ProductName select x;
             foreach (Product x in query3)
             {
@@ -49,20 +53,26 @@
 
             }
             Console.WriteLine();
-
-            Console.WriteLine("The Highest Price from Product List : ");
+            //For retrieving the highest Price from Product List.
+            Console.WriteLine("(4)-The Highest Price from Product List : ");
             var query4 = products.Where(x => x.Price == products.Max(x => x.Price)).ToList();
             foreach (Product x in query4)
             {
                 Console.WriteLine($"{x.ProductId} {x.ProductName} {x.Brand} {x.Quantity} {x.Price}");
             }
             Console.WriteLine();
-
-            Console.WriteLine("check whether the Product with ProductId P003 exists in Product List or not");
+            //To check whether the Product with ProductId P003 exists in Product List or not. The output should be a Boolean value.
+            Console.WriteLine("(5)-Check whether the Product with ProductId P003 exists in Product List or not");
             var query5 = products.Any(x => x.ProductId == "P003");
             Console.WriteLine(query5);
-            Console.WriteLine();    
+            Console.WriteLine();
         }
 
+        static void Main(string[] args)
+        {
+            //Call the SeedData method in main
+            Program p = new Program();
+            p.seeddata();
+        }
     }
 }
